@@ -1,0 +1,9 @@
+spring:
+  main:
+    banner-mode: off
+  social:
+    twitter:
+      app-id: ${twitter-app-id}
+      app-secret: ${twitter-api-secret}
+      access-token: ${twitter-access-token}
+      access-secret: ${twitter-access-secret}
