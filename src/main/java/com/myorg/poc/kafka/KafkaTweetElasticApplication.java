@@ -1,12 +1,24 @@
 package com.myorg.poc.kafka;
 
+import com.myorg.poc.kafka.service.TwitterService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationListener;
+import org.springframework.context.event.ContextClosedEvent;
 
 @SpringBootApplication
-public class KafkaTweetElasticApplication {
+public class KafkaTweetElasticApplication implements ApplicationListener<ContextClosedEvent> {
+
+    @Autowired
+    private TwitterService twitterService;
 
     public static void main(String[] args) {
         SpringApplication.run(KafkaTweetElasticApplication.class, args);
+    }
+
+    @Override
+    public void onApplicationEvent(ContextClosedEvent contextClosedEvent) {
+        twitterService.stopConsumption();
     }
 }
