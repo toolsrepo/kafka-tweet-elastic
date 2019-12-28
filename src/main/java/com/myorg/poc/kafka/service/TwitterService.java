@@ -1,5 +1,6 @@
 package com.myorg.poc.kafka.service;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.social.twitter.api.*;
 import org.springframework.stereotype.Service;
@@ -10,20 +11,17 @@ import java.util.concurrent.*;
 import static java.util.Collections.singletonList;
 
 @Service
+@RequiredArgsConstructor
 @Slf4j
 public class TwitterService {
 
-    private Twitter twitter;
-    private KafkaProducerService kafkaProducerService;
+    private final Twitter twitter;
+    private final KafkaProducerService kafkaProducerService;
+
     private Stream twitterStream;
     ExecutorService executorService = Executors.newFixedThreadPool(1);
 
     private static final BlockingQueue<String> msgQueue = new LinkedBlockingDeque<>(100000);
-
-    public TwitterService(Twitter twitter, KafkaProducerService kafkaProducerService) {
-        this.twitter = twitter;
-        this.kafkaProducerService = kafkaProducerService;
-    }
 
     public void startConsumption(String text) {
         FilterStreamParameters filterStreamParameters =
@@ -58,7 +56,7 @@ public class TwitterService {
         @Override
         public void onTweet(Tweet tweet) {
             String message = String.format("User [%s], Tweeted : [%s]", tweet.getUser().getName(), tweet.getText());
-            log.info(message);
+            log.debug(message);
             msgQueue.add(message);
         }
 

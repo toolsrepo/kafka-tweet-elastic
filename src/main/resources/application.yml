@@ -14,4 +14,8 @@ spring:
       client-id: producer-1
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
-
+      enable-idempotence: true
+      acks: all
+      properties:
+        enable-idempotence: true
+        max-in-flight-requests-per-connection: 5
