@@ -45,7 +45,7 @@ public class TwitterService {
     }
 
     public void stopConsumption() {
-        twitterStream.close();
+        if(twitterStream != null) twitterStream.close();
         executorService.shutdown();
     }
 

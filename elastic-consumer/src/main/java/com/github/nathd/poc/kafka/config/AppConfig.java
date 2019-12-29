@@ -15,6 +15,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
+import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
+import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 
 import java.util.Arrays;
 
@@ -37,7 +39,7 @@ public class AppConfig {
     }
 
     @Bean
-    public ElasticsearchOperations elasticsearchOperations(RestHighLevelClient restHighLevelClient) {
+    public ElasticsearchRestTemplate elasticsearchRestTemplate(RestHighLevelClient restHighLevelClient) {
         return new ElasticsearchRestTemplate(restHighLevelClient);
     }
 
@@ -47,5 +49,15 @@ public class AppConfig {
                 new KafkaConsumer<String, String>(kafkaProperties.getConsumer().buildProperties());
         kafkaConsumer.subscribe(Arrays.asList("twitter"));
         return kafkaConsumer;
+    }
+
+    @Bean
+    public ConcurrentKafkaListenerContainerFactory<String, String> concurrentKafkaListenerContainerFactory(
+            KafkaProperties kafkaProperties) {
+
+        ConcurrentKafkaListenerContainerFactory<String, String> factory =
+                new ConcurrentKafkaListenerContainerFactory<>();
+        factory.setConsumerFactory(new DefaultKafkaConsumerFactory<>(kafkaProperties.getConsumer().buildProperties()));
+        return factory;
     }
 }

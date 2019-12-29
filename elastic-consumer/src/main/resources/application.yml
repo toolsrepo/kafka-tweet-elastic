@@ -17,6 +17,9 @@ spring:
       auto-offset-reset: earliest
       enable-auto-commit: false
       max-poll-records: 5
+      heartbeat-interval: 3
+      properties:
+        session.timeout.ms: 10
 elasticsearch:
   hostname: nath-course-8789992670.us-east-1.bonsaisearch.net
   user-key: ${user-key}
