@@ -7,6 +7,16 @@ spring:
     elasticsearch:
       repositories:
         enabled: true
+  kafka:
+    consumer:
+      bootstrap-servers:
+        - localhost:9092
+      group-id: my-group
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      auto-offset-reset: earliest
+      enable-auto-commit: false
+      max-poll-records: 5
 elasticsearch:
   hostname: nath-course-8789992670.us-east-1.bonsaisearch.net
   user-key: ${user-key}

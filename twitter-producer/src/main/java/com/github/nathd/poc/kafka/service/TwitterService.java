@@ -1,5 +1,6 @@
 package com.github.nathd.poc.kafka.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.social.twitter.api.*;
@@ -17,11 +18,12 @@ public class TwitterService {
 
     private final Twitter twitter;
     private final KafkaProducerService kafkaProducerService;
+    private final ObjectMapper objectMapper;
 
     private Stream twitterStream;
     ExecutorService executorService = Executors.newFixedThreadPool(1);
 
-    private static final BlockingQueue<String> msgQueue = new LinkedBlockingDeque<>(100000);
+    private static final BlockingQueue<Tweet> msgQueue = new LinkedBlockingDeque<>(100000);
 
     public void startConsumption(String text) {
         FilterStreamParameters filterStreamParameters =
@@ -31,8 +33,8 @@ public class TwitterService {
         executorService.submit(() -> {
             while(true) {
                 try {
-                    String tweet = msgQueue.take();
-                    kafkaProducerService.send("twitter", tweet);
+                    Tweet tweet = msgQueue.take();
+                    kafkaProducerService.send("twitter", this.objectMapper.writeValueAsString(tweet));
                 } catch (InterruptedException e) {
                     log.error("Interrupted exception", e);
                 } catch (Exception e) {
@@ -47,7 +49,7 @@ public class TwitterService {
         executorService.shutdown();
     }
 
-    public List<String> getTweets() {
+    public List<Tweet> getTweets() {
         return new ArrayList<>(msgQueue);
     }
 
@@ -57,7 +59,7 @@ public class TwitterService {
         public void onTweet(Tweet tweet) {
             String message = String.format("User [%s], Tweeted : [%s]", tweet.getUser().getName(), tweet.getText());
             log.debug(message);
-            msgQueue.add(message);
+            msgQueue.add(tweet);
         }
 
         @Override
