@@ -1,4 +1,4 @@
-package com.myorg.poc.kafka.properties;
+package com.github.nathd.poc.kafka.properties;
 
 import lombok.Getter;
 import lombok.Setter;

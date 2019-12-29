@@ -1,4 +1,4 @@
-package com.myorg.poc.kafka.service;
+package com.github.nathd.poc.kafka.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,7 +32,7 @@ public class TwitterService {
             while(true) {
                 try {
                     String tweet = msgQueue.take();
-                    kafkaProducerService.send("tweeter-topic", tweet);
+                    kafkaProducerService.send("twitter", tweet);
                 } catch (InterruptedException e) {
                     log.error("Interrupted exception", e);
                 } catch (Exception e) {

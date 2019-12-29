@@ -1,6 +1,6 @@
-package com.myorg.poc.kafka.api;
+package com.github.nathd.poc.kafka.api;
 
-import com.myorg.poc.kafka.service.TwitterService;
+import com.github.nathd.poc.kafka.service.TwitterService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;

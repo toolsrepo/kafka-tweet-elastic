@@ -1,4 +1,4 @@
-package com.myorg.poc.kafka.service;
+package com.github.nathd.poc.kafka.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.kafka.core.KafkaTemplate;

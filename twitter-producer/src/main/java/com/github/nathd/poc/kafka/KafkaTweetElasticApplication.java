@@ -1,6 +1,6 @@
-package com.myorg.poc.kafka;
+package com.github.nathd.poc.kafka;
 
-import com.myorg.poc.kafka.service.TwitterService;
+import com.github.nathd.poc.kafka.service.TwitterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

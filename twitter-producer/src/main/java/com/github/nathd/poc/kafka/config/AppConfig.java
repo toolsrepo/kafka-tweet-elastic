@@ -1,6 +1,6 @@
-package com.myorg.poc.kafka.config;
+package com.github.nathd.poc.kafka.config;
 
-import com.myorg.poc.kafka.properties.TwitterProperties;
+import com.github.nathd.poc.kafka.properties.TwitterProperties;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
