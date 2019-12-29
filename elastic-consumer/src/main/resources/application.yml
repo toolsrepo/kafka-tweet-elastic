@@ -1,3 +1,15 @@
+server:
+  port: 8081
 spring:
   main:
     banner-mode: off
+  data:
+    elasticsearch:
+      repositories:
+        enabled: true
+elasticsearch:
+  hostname: nath-course-8789992670.us-east-1.bonsaisearch.net
+  user-key: ${user-key}
+  user-secret: ${user-secret}
+  index: twitter
+  type: tweets

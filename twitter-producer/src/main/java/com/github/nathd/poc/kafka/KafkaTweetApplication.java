@@ -8,13 +8,13 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextClosedEvent;
 
 @SpringBootApplication
-public class KafkaTweetElasticApplication implements ApplicationListener<ContextClosedEvent> {
+public class KafkaTweetApplication implements ApplicationListener<ContextClosedEvent> {
 
     @Autowired
     private TwitterService twitterService;
 
     public static void main(String[] args) {
-        SpringApplication.run(KafkaTweetElasticApplication.class, args);
+        SpringApplication.run(KafkaTweetApplication.class, args);
     }
 
     @Override
