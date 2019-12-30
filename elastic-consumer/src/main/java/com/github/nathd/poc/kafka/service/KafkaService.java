@@ -35,9 +35,10 @@ public class KafkaService {
                 } catch (Exception e) {
                     log.warn("Ignored bad data {} of partition {} and offset {}",
                             record.value(), record.partition(), record.offset());
+                    e.printStackTrace();
                 }
             }
-            if (recordCount > 0) {
+            if (queryList.size() > 0) {
                 elasticSearchService.saveInBulk(queryList);
                 log.info("Committing offsets...");
                 kafkaConsumer.commitSync();
@@ -47,6 +48,6 @@ public class KafkaService {
     }
 
     private String extractId(String record) {
-        return jsonParser.parse(record).getAsJsonObject().get("id_str").getAsString();
+        return jsonParser.parse(record).getAsJsonObject().get("id").getAsString();
     }
 }

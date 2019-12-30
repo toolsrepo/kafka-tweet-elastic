@@ -19,6 +19,7 @@
     <modules>
         <module>twitter-producer</module>
         <module>elastic-consumer</module>
+        <module>kafka-streaming</module>
     </modules>
 
     <dependencies>
